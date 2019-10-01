@@ -20,6 +20,6 @@ namespace CodeSnippets.Web
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
-                .UseWebRoot("Spa/public");
+                .UseWebRoot("Spa/build");
     }
 }

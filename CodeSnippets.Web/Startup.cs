@@ -57,7 +57,7 @@ namespace CodeSnippets.Web
             app.UseStaticFiles(new StaticFileOptions
             {
                 FileProvider = new PhysicalFileProvider(
-                    Path.Combine(Directory.GetCurrentDirectory(), "Spa/public/static")),
+                    Path.Combine(Directory.GetCurrentDirectory(), "Spa/build/static")),
                 RequestPath = "/static"
             });
 
