@@ -46,7 +46,6 @@ namespace CodeSnippets.Web
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseDefaultFiles(new DefaultFilesOptions
@@ -58,11 +57,12 @@ namespace CodeSnippets.Web
             app.UseStaticFiles(new StaticFileOptions
             {
                 FileProvider = new PhysicalFileProvider(
-                    Path.Combine(Directory.GetCurrentDirectory(), "Spa/build/static")),
+                    Path.Combine(Directory.GetCurrentDirectory(), "Spa/public/static")),
                 RequestPath = "/static"
             });
 
             app.UseCors(CORS_POLICY_NAME);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
