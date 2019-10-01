@@ -1,10 +1,14 @@
 import React from 'react';
+import { BrowserRouter, Route } from 'react-router-dom';
+import TestComponent from "./Components/TestComponent.jsx";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <h3>IT JUST WORKS</h3>
-    </div>
+    <BrowserRouter>
+      <div className="app">
+        <TestComponent /> 
+      </div>
+    </BrowserRouter>
   );
 }
 
