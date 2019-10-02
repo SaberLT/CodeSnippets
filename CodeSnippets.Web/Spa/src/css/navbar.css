@@ -1,0 +1,9 @@
+.navbar .dropdown-menu { 
+    background-color: #343a40;
+    color: #ffffff;
+}
+
+.navbar .dropdown.show a {
+    background-color: #343a40;
+    color: #f8f9fa;
+}
