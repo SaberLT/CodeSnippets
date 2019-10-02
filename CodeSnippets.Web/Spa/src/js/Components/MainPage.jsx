@@ -2,9 +2,9 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-const TestComponent = (props) => {
+const MainPage = (props) => {
     return <div>
-        <h3>Test component... Working nearly fine...</h3>
+        <h3>Main Component... Working nearly fine...</h3>
     </div>
 }
 
@@ -15,5 +15,5 @@ const mapStateToProps = ( { account } ) => {
 }
 
 export default withRouter(
-    connect(mapStateToProps)(TestComponent)
+    connect(mapStateToProps)(MainPage)
 );

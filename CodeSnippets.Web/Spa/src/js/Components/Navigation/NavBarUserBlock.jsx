@@ -1,34 +1,64 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Nav, NavDropdown } from 'react-bootstrap'
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom'
+import cookie from 'js-cookie';
 import '../../../css/navbar.css';
 
-const NavBarUserBlock = (props) => {
-    let { account } = props;
-    console.log(account);
+import { AUTH_USER, LOGOUT_USER } from '../../Actions/accountActions.js'
 
-    let isAuthed = account.token!=='';
+class NavBarUserBlock extends Component {
+    componentDidUpdate() {
+        let { authUser } = this.props;
+        let authCookie = cookie.getJSON('AUTH');
+        if(authCookie!==undefined)
+            authUser(authCookie);       
+    }
 
-        return ( <div>
-            { isAuthed 
-                ?
-                <Nav>
-                    <NavDropdown title={`Hello, ${account.username}`} id="collasible-nav-dropdown">
-                        <NavDropdown.Item href="#profile">Profile</NavDropdown.Item>
-                        <NavDropdown.Item href="#logout">Log out</NavDropdown.Item>
-                    </NavDropdown>
-                </Nav>
-                : 
-                <Nav>
-                    <Nav.Link href="#signin">Sign in</Nav.Link>
-                    <Nav.Link href="#signup">Sign up</Nav.Link>
-                </Nav>}
-            </div>
-    );
+    render() {
+        let { account, history } = this.props;
+        let { logoutUser } = this.props;
+     
+    
+        console.log(this.props);
+    
+        let isAuthed = account.token!=='';
+    
+            return ( <div>
+                { isAuthed 
+                    ?
+                    <Nav>
+                        <NavDropdown title={`Hello, ${account.username} `} id="collasible-nav-dropdown">
+                            <NavDropdown.Item href="#profile">Profile</NavDropdown.Item>
+                            <NavDropdown.Item href="#logout" onClick={()=>logoutUser()}>Log out</NavDropdown.Item>
+                        </NavDropdown>
+                    </Nav>
+                    : 
+                    <Nav>
+                        <Nav.Link onClick={()=>history.push('/signin')}>Sign in</Nav.Link>
+                        <Nav.Link onClick={()=>history.push('/signup')}>Sign up</Nav.Link>
+                    </Nav>}
+                </div>
+        );
+    }
 }
 
 const mapStateToProps = ({ account }) => ({
     account
 });
 
-export default connect(mapStateToProps)(NavBarUserBlock);
+const mapDispatchToProps = dispatch => ({
+    authUser: values => {
+        dispatch({
+            type: AUTH_USER,
+            payload: values
+        })
+    },
+    logoutUser: () => {
+        dispatch({
+            type: LOGOUT_USER
+        })
+    }
+})
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NavBarUserBlock));
