@@ -1,6 +1,6 @@
 // Delete if all would be good with JWT Token from ASP.NET CORE (Web Api)
 import cookie from 'js-cookie';
-import { AUTH_USER, LOGOUT_USER } from '../Actions/accountActions';
+import { AUTH_USER, LOGOUT_USER } from '../Actions/accountActions.js'
 
 const initState = {
     token: '',
