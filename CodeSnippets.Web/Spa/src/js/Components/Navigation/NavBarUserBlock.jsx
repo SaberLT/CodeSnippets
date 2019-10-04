@@ -18,9 +18,6 @@ class NavBarUserBlock extends Component {
     render() {
         let { account, history } = this.props;
         let { logoutUser } = this.props;
-     
-    
-        console.log(this.props);
     
         let isAuthed = account.token!=='';
     
