@@ -14,7 +14,7 @@ namespace CodeSnippets.Web.Extensions
         public static void AddUtilityDI(this IServiceCollection services)
         {
             services.AddSingleton<IResponseCreator, ResponseCreator>();
-            services.AddSingleton<IUserPasswordEncoder, UserPasswordBase64Encoder>();
+            services.AddSingleton<IUserPasswordEncoder, UserPasswordMD5Encoder>();
             services.AddSingleton(typeof(IUserTokenCreator), new UserTokenHMACCreator("123"));
         }
     }
