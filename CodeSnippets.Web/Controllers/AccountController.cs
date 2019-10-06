@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CodeSnippets.Services.Interfaces;
 using CodeSnippets.Utils.Interfaces;
+using CodeSnippets.Utils.ResponseCreators;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,5 +29,9 @@ namespace CodeSnippets.Web.Controllers
         {
             return $"Hello, motherfucker!";
         }
+
+        [HttpPost]
+        [Route("signIn")]
+        public async Task<ResponseViewModel> SignInUser()
     }
 }
