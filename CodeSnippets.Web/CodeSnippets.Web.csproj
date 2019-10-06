@@ -24,7 +24,6 @@
     <Folder Include="Spa\build\static\" />
     <Folder Include="Spa\public\" />
     <Folder Include="..\..\New folder %25282%2529\CodeSnippets.Web\ViewModels\Request\Account\" />
-    <Folder Include="ViewModels\Response\Account\" />
   </ItemGroup>
 
 </Project>

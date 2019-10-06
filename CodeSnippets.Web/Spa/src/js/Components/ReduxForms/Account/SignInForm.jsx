@@ -23,17 +23,6 @@ const SignInForm = props => {
                 <button className="btn btn-outline-info">Sign in</button>
             </div>
         </form>
-        // <Form>
-        //     <FormGroup>
-        //         <Form.Label>Login</Form.Label>
-        //         <Field name="username" placeholder="username" id="username" width={6} component={FormInput} />
-        //     </FormGroup>
-        //     <FormGroup>
-        //         <Form.Label>Password</Form.Label>
-        //         <Field name="password" placeholder="password" id="password" width={6} hasPassword={true} component={FormInput} />
-        //     </FormGroup>
-        //     <button type="submit" onClick={(e)=>{e.preventDefault(); handleAuthUser(values, authUser, history)}}>Send</button>
-        // </Form>
         : <div>
             <h3>You are already authorized!</h3>
         </div>
@@ -44,11 +33,11 @@ const handleAuthUser = (values, authUser, history) => {
     console.log(values)
 }
 
-//const selector = formValueSelector('signInForm');
+const selector = formValueSelector('signInForm');
 
 const mapStateToProps = store => {
     return({
-    values : formValueSelector('signInForm')(store, 'username', 'password'),
+    values : selector(store, 'username', 'password'),
     hasToken : store.account.token===undefined? false : true
 })}
 

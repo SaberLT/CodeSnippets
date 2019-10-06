@@ -4,13 +4,14 @@ import { connect } from 'react-redux';
 import { reduxForm, Field, formValueSelector } from 'redux-form'
 import { AUTH_USER } from '../../../Actions/accountActions.js';
 import { FormInputField } from '../Helpers.js';
-//import axios from 'axios'
+import { SIGN_UP_USER, SIGN_IN_USER} from '../../../Api'
+import axios from 'axios';
 
 const SignUpForm = props => {
     let { authUser, values, history, account} = props;
     return ( 
         !account ?
-        <form>
+        <form onSubmit={(e)=>{e.preventDefault();handleAuthUser(values, authUser, history)}}>
             <div className="form-group offset-1 col-10 offset-lg-0">
                 <label>Username</label>
                 <Field name="username" placeholder="Your username" id="username" classes="col" width={6} component={FormInputField} />
@@ -27,17 +28,6 @@ const SignUpForm = props => {
                 <button className="btn btn-outline-info">Sign in</button>
             </div>
         </form>
-        // <Form>
-        //     <FormGroup>
-        //         <Form.Label>Login</Form.Label>
-        //         <Field name="username" placeholder="username" id="username" width={6} component={FormInput} />
-        //     </FormGroup>
-        //     <FormGroup>
-        //         <Form.Label>Password</Form.Label>
-        //         <Field name="password" placeholder="password" id="password" width={6} hasPassword={true} component={FormInput} />
-        //     </FormGroup>
-        //     <button type="submit" onClick={(e)=>{e.preventDefault(); handleAuthUser(values, authUser, history)}}>Send</button>
-        // </Form>
         : <div>
             <h3>You are already authorized!</h3>
         </div>
@@ -45,14 +35,33 @@ const SignUpForm = props => {
 }
 
 const handleAuthUser = (values, authUser, history) => {
-    console.log(values)
+    let { username, password, passwordConfirmation } = values;
+
+    if(password!=passwordConfirmation) //TODO
+        console.log("passwords doesn't match!");
+
+    axios.post(SIGN_UP_USER, {
+        username,
+        password,
+        passwordConfirmation
+    })
+    .then(res=> {
+        console.log('Response isL ', res)
+        if(res.data.error === 0) {
+            let result = res.data.response;
+            authUser(result);
+            history.push('/');
+        } else {
+            console.log('Error: ', res.data.error)
+        }
+    })
 }
 
-//const selector = formValueSelector('signInForm');
+const selector = formValueSelector('signInForm');
 
 const mapStateToProps = store => {
     return({
-    values : formValueSelector('signUpForm')(store, 'username', 'password', 'passwordConfirmation'),
+    values : selector(store, 'username', 'password', 'passwordConfirmation'),
     hasToken : store.account.token===undefined? false : true
 })}
 

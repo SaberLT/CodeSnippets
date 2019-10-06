@@ -4,7 +4,8 @@ import { AUTH_USER, LOGOUT_USER } from '../Actions/accountActions.js'
 
 const initState = {
     token: '',
-    username: ''
+    username: '',
+    role: ''
 }
 
 const accountReducer = (state = initState, action) => {

@@ -20,14 +20,14 @@ namespace CodeSnippets.Entities.Entities
 
     public enum AuthType : byte
     {
-        STANDARD = 0,
-        GITHUB = 1,
-        VK = 2
+        Standard = 0,
+        GitHub = 1,
+        Vk = 2
     }
 
     public enum Role : byte
     {
-        USER = 0,
-        ADMIN = 1
+        User = 0,
+        Admin = 1
     }
 }

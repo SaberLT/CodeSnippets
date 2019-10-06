@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using CodeSnippets.Entities.Entities;
+using CodeSnippets.Services.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +12,7 @@ namespace CodeSnippets.Web.Mappings
     {
         public ViewModelsMappings()
         {
-            
+            CreateMap<User, UserViewModel>();
         }
     }
 }

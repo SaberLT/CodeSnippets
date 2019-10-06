@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CodeSnippets.Web.ViewModels.Response
+namespace CodeSnippets.Web.ViewModels.Response.Account
 {
-    public class UserTokenViewModel
+    public class AuthViewModel
     {
         public string Token { get; set; }
         public string Username { get; set; }
