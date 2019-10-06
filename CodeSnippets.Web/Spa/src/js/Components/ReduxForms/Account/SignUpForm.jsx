@@ -35,7 +35,6 @@ const SignUpForm = props => {
 }
 
 const handleAuthUser = (values, authUser, history) => {
-    console.log(values);
     let { login, password, passwordConfirmation } = values;
 
     if(password!=passwordConfirmation) //TODO
@@ -47,7 +46,6 @@ const handleAuthUser = (values, authUser, history) => {
         passwordConfirmation
     })
     .then(res=> {
-        console.log('Response isL ', res)
         if(res.data.error === 0) {
             let result = res.data.response;
             console.log(res.data.response);

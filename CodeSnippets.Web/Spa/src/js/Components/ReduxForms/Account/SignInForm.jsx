@@ -4,16 +4,17 @@ import { connect } from 'react-redux';
 import { reduxForm, Field, formValueSelector } from 'redux-form'
 import { AUTH_USER } from '../../../Actions/accountActions.js';
 import { FormInputField } from '../Helpers.js';
-//import axios from 'axios'
+import axios from 'axios';
+import { SIGN_IN_USER } from '../../../Api/index.js';
 
 const SignInForm = props => {
     let { authUser, values, history, account} = props;
     return ( 
         !account ?
-        <form>
+        <form onSubmit={(e)=>{e.preventDefault(); handleAuthUser(values, authUser, history)}}>
             <div className="form-group offset-1 col-10 offset-lg-0">
-                <label>Username</label>
-                <Field name="username" placeholder="Your username" id="username" classes="col" width={6} component={FormInputField} />
+                <label>Login</label>
+                <Field name="login" placeholder="Your login" id="login" classes="col" width={6} component={FormInputField} />
             </div>
             <div className ="form-group offset-1 col-10 offset-lg-0">
                 <label>Password</label>
@@ -30,14 +31,29 @@ const SignInForm = props => {
 }
 
 const handleAuthUser = (values, authUser, history) => {
-    console.log(values)
+    let { login, password } = values;
+
+    axios.post(SIGN_IN_USER, {
+        login, password
+    })
+    .then(res=>{
+        if(res.data.error === 0){
+            let result= res.data.response;
+            authUser({
+                ...result
+            });
+            history.push('/')
+        } else {
+            console.log('Error', res.data.error)
+        }
+    })
 }
 
 const selector = formValueSelector('signInForm');
 
 const mapStateToProps = store => {
     return({
-    values : selector(store, 'username', 'password'),
+    values : selector(store, 'login', 'password'),
     hasToken : store.account.token===undefined? false : true
 })}
 
