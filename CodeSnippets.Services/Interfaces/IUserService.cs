@@ -14,6 +14,6 @@ namespace CodeSnippets.Services.Interfaces
         Task<User> Login(string login, string password);
         Task<User> Register(string login, string password);
         Task<User> GetUserById(long id);
-        Task<bool> IsUserExists(string login);
+        Task<bool> IsUserExists(string login, AuthType authType);
     }
 }

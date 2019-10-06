@@ -51,7 +51,7 @@ namespace CodeSnippets.Services.Implementations
 
         public async Task<User> Login(string login, string password)
         {
-            if(!await IsUserExists(login))
+            if(!await IsUserExists(login, AuthType.Standard))
                 throw new UserNotFoundException($"User {login} doesn't exist.");
 
             var user = await _userRepository.Query().SingleOrDefaultAsync(x => x.Login == login && x.AuthData == _encoder.EncodeUserPassword(password));
@@ -63,7 +63,7 @@ namespace CodeSnippets.Services.Implementations
 
         public async Task<User> Register(string login, string password)
         {
-            if(await IsUserExists(login))
+            if(await IsUserExists(login, AuthType.Standard))
                 throw new UserAlreadyExistsException($"User {login} has already exists.");
 
             var encodedPassword = _encoder.EncodeUserPassword(password);
@@ -81,7 +81,7 @@ namespace CodeSnippets.Services.Implementations
 
             await _uow.CommitAsync();
 
-            var newUser = await _userRepository.Query().SingleOrDefaultAsync(x => x.Login == login);
+            var newUser = await _userRepository.Query().SingleOrDefaultAsync(x => x.Login == login && x.AuthType == AuthType.Standard);
             return newUser;
         }
 
@@ -89,9 +89,9 @@ namespace CodeSnippets.Services.Implementations
         {
             return await _userRepository.GetByIdAsync(id);
         }
-        public async Task<bool> IsUserExists(string login)
+        public async Task<bool> IsUserExists(string login, AuthType authType)
         {
-            return await _userRepository.Query().SingleOrDefaultAsync(x => x.Login == login) != null;
+            return await _userRepository.Query().SingleOrDefaultAsync(x => x.Login == login && x.AuthType == authType) != null;
         }
     }
 }
