@@ -13,8 +13,8 @@ const SignUpPage = props => {
     </div>
     <div className="col-12 col-lg-6">
         <p className="h3">Modern OAuth sign up:</p>
-        <button className="btn btn-outline-info col-12 oauth-button">Sign up with Github <GitHubIcon /></button>
-        <button className="btn btn-outline-info col-12 oauth-button">Sign up with vk.com <VkIcon /></button>
+        <button className="btn btn-outline-info offset-1 col-10 oauth-button">Sign up with Github <GitHubIcon /></button>
+        <button className="btn btn-outline-info offset-1 col-10 oauth-button">Sign up with vk.com <VkIcon /></button>
     </div>
 </div>);
 }

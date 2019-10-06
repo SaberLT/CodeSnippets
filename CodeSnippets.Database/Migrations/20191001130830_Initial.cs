@@ -7,6 +7,13 @@ namespace CodeSnippets.Database.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.Sql(
+                "CREATE TABLE `codesnippets.__EFMigrationsHistory` " +
+                "( `MigrationId` nvarchar(150) NOT NULL, " +
+                "`ProductVersion` nvarchar(32) NOT NULL, " +
+                "PRIMARY KEY (`MigrationId`) " +
+                ");");
+
             migrationBuilder.CreateTable(
                 name: "User",
                 columns: table => new

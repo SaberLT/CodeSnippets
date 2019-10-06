@@ -8,9 +8,10 @@ import '../../../css/navbar.css';
 import { AUTH_USER, LOGOUT_USER } from '../../Actions/accountActions.js'
 
 class NavBarUserBlock extends Component {
-    componentDidUpdate() {
+    componentWillMount() {
         let { authUser } = this.props;
         let authCookie = cookie.getJSON('AUTH');
+
         if(authCookie!==undefined)
             authUser(authCookie);       
     }
@@ -26,8 +27,8 @@ class NavBarUserBlock extends Component {
                     ?
                     <Nav>
                         <NavDropdown title={`Hello, ${account.username} `} id="collasible-nav-dropdown">
-                            <NavDropdown.Item href="#profile">Profile</NavDropdown.Item>
-                            <NavDropdown.Item href="#logout" onClick={()=>logoutUser()}>Log out</NavDropdown.Item>
+                            <NavDropdown.Item >Profile</NavDropdown.Item>
+                            <NavDropdown.Item onClick={()=>logoutUser()}>Log out</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
                     : 

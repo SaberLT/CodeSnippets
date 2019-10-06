@@ -11,10 +11,10 @@ const SignUpForm = props => {
     let { authUser, values, history, account} = props;
     return ( 
         !account ?
-        <form onSubmit={(e)=>{e.preventDefault();handleAuthUser(values, authUser, history)}}>
+        <form onSubmit={(e)=>{e.preventDefault(); handleAuthUser(values, authUser, history)}}>
             <div className="form-group offset-1 col-10 offset-lg-0">
-                <label>Username</label>
-                <Field name="username" placeholder="Your username" id="username" classes="col" width={6} component={FormInputField} />
+                <label>Login</label>
+                <Field name="login" placeholder="Your login" id="login" classes="col" width={6} component={FormInputField} />
             </div>
             <div className ="form-group offset-1 col-10 offset-lg-0">
                 <label>Password</label>
@@ -25,7 +25,7 @@ const SignUpForm = props => {
                 <Field name="passwordConfirmation" isPassword={true} placeholder="Your password" id="passwordConfirmation" classes="col" width={6} component={FormInputField} />
             </div>
             <div className="form-group offset-1 col-10 offset-lg-0">
-                <button className="btn btn-outline-info">Sign in</button>
+                <button className="btn btn-outline-info">Sign up</button>
             </div>
         </form>
         : <div>
@@ -35,13 +35,14 @@ const SignUpForm = props => {
 }
 
 const handleAuthUser = (values, authUser, history) => {
-    let { username, password, passwordConfirmation } = values;
+    console.log(values);
+    let { login, password, passwordConfirmation } = values;
 
     if(password!=passwordConfirmation) //TODO
-        console.log("passwords doesn't match!");
+        console.log("Passwords doesn't match!");
 
     axios.post(SIGN_UP_USER, {
-        username,
+        login,
         password,
         passwordConfirmation
     })
@@ -49,7 +50,10 @@ const handleAuthUser = (values, authUser, history) => {
         console.log('Response isL ', res)
         if(res.data.error === 0) {
             let result = res.data.response;
-            authUser(result);
+            console.log(res.data.response);
+            authUser({
+                ...result
+            });
             history.push('/');
         } else {
             console.log('Error: ', res.data.error)
@@ -57,11 +61,11 @@ const handleAuthUser = (values, authUser, history) => {
     })
 }
 
-const selector = formValueSelector('signInForm');
+const selector = formValueSelector('signUpForm');
 
 const mapStateToProps = store => {
     return({
-    values : selector(store, 'username', 'password', 'passwordConfirmation'),
+    values : selector(store, 'login', 'password', 'passwordConfirmation'),
     hasToken : store.account.token===undefined? false : true
 })}
 

@@ -28,7 +28,10 @@ namespace CodeSnippets.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddServicesDI();
-            //services.AddMapperDI();
+            services.AddMapperDI();
+            services.AddUtilityDI();
+
+            
             //services.AddEntityFramework(Configuration);
 
             services.AddCors(options =>
@@ -68,7 +71,22 @@ namespace CodeSnippets.Web
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseMvc();
+            if (env.IsDevelopment())
+                app.UseDeveloperExceptionPage();
+
+            app.UseMvc(routes=>
+            {
+                routes.MapSpaFallbackRoute(
+                    "spa-fallback",
+                    "/"
+                    );
+                routes.MapRoute("default-api", "api/{controller}/{action}/{id?}");
+            });
+
+            app.UseSpa(spa =>
+            {
+                spa.Options.SourcePath = "Spa/build";
+            });
         }
     }
 }

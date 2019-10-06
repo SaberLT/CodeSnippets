@@ -17,8 +17,8 @@ const accountReducer = (state = initState, action) => {
             }
         }
         case LOGOUT_USER: {
-            return {...state,
-                ...action.payload
+            cookie.remove('AUTH');
+            return {...initState
             }
         }
         default:

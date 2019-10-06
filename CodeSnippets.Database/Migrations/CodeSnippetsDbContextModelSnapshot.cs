@@ -41,6 +41,7 @@ namespace CodeSnippets.Database.Migrations
 
                     b.ToTable("User");
                 });
+
 #pragma warning restore 612, 618
         }
     }

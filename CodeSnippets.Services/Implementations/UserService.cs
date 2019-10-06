@@ -29,11 +29,12 @@ namespace CodeSnippets.Services.Implementations
         private readonly IMapper _mapper;
 
         public UserService(IUserRepository userRepository, ICodeSnippetsUnitOfWork uow,
-            IMapper mapper, IUserPasswordEncoder _encoder, 
+            IMapper mapper, IUserPasswordEncoder encoder, 
             IUserTokenCreator tokenCreator)
         {
             _userRepository = userRepository;
             _tokenCreator = tokenCreator;
+            _encoder = encoder;
 
             _mapper = mapper;
             _uow = uow;
@@ -90,7 +91,7 @@ namespace CodeSnippets.Services.Implementations
         }
         public async Task<bool> IsUserExists(string login)
         {
-            return await _userRepository.Query().SingleOrDefaultAsync(x => x.Login == login) == null;
+            return await _userRepository.Query().SingleOrDefaultAsync(x => x.Login == login) != null;
         }
     }
 }
