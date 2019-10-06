@@ -31,13 +31,6 @@ namespace CodeSnippets.Web.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
-        [Route("test")]
-        public async Task<string> PerformTestQuery()
-        {
-            return $"Hello, motherfucker!";
-        }
-
         [HttpPost]
         [Route("signIn")]
         public async Task<ResponseViewModel> SignIn([FromBody]SignInViewModel request)

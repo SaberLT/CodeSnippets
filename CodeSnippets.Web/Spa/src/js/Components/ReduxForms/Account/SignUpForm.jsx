@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { reduxForm, Field, formValueSelector } from 'redux-form'
 import { AUTH_USER } from '../../../Actions/accountActions.js';
 import { FormInputField } from '../Helpers.js';
-import { SIGN_UP_USER, SIGN_IN_USER} from '../../../Api'
+import { SIGN_UP_USER} from '../../../Api'
 import axios from 'axios';
 
 const SignUpForm = props => {
@@ -37,7 +37,7 @@ const SignUpForm = props => {
 const handleAuthUser = (values, authUser, history) => {
     let { login, password, passwordConfirmation } = values;
 
-    if(password!=passwordConfirmation) //TODO
+    if(password!==passwordConfirmation) //TODO
         console.log("Passwords doesn't match!");
 
     axios.post(SIGN_UP_USER, {
