@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import GitHubIcon from '../../../icons/github.svg'
 
-const githubAuthDataProduction = {
-    client_id: 'c276c97b3076538e4004',
-    request_uri: 'https://github.com/login/oauth/authorize',
-    redirect_uri: 'http://localhost:3000/auth/github',
-}
+// const githubAuthDataProduction = {
+//     client_id: 'c276c97b3076538e4004',
+//     request_uri: 'https://github.com/login/oauth/authorize',
+//     redirect_uri: 'http://localhost:3000/auth/github',
+// }
 
 const githubAuthDataDevelopment = {
     client_id: '32fd693e1152e5c78d53',

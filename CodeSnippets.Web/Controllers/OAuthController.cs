@@ -59,5 +59,28 @@ namespace CodeSnippets.Web.Controllers
 
             return _responseCreator.CreateSuccess(authViewModel);
         }
+
+
+        [HttpPost]
+        [Route("vkAuth")]
+        public async Task<ResponseViewModel> VkAuth([FromBody]VkRequestViewModel authData)
+        {
+            var userInfo = await _authService.VkSignInOrSignUpUser(authData);
+
+            User user = null;
+
+            if (await _authService.IsVkUserExists(userInfo))
+                user = await _authService.LoginVkUser(userInfo);
+            else
+                user = await _authService.RegisterVkUser(userInfo);
+
+            await _uow.CommitAsync();
+
+            var authViewModel = _mapper.Map<AuthViewModel>(user);
+
+            authViewModel.Token = _tokenCreator.CreateToken(JsonConvert.SerializeObject(user));
+
+            return _responseCreator.CreateSuccess(authViewModel);
+        }
     }
 }

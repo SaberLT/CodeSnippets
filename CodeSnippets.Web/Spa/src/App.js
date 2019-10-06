@@ -9,6 +9,7 @@ import SignUpPage from './js/Components/Account/SignUpPage.jsx';
 import ViewSnippetsPage from './js/Components/Snippet/ViewSnippetsPage.jsx';
 import ViewUsersPage from './js/Components/User/ViewUsersPage.jsx';
 import GithubAuthResult from './js/Components/Auth/GithubAuthResult.jsx'
+import VkAuthResult from './js/Components/Auth/VkAuthResult.jsx';
 
 
 const App = () => {
@@ -25,8 +26,9 @@ const App = () => {
 
 
 
-            
+
             <Route path="/auth/github*" component={GithubAuthResult} />
+            <Route path="/auth/vk*" component={VkAuthResult}/>
           </Container>
       </div>
     </BrowserRouter>

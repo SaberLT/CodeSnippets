@@ -74,26 +74,72 @@ namespace CodeSnippets.Services.Implementations
         public async Task<bool> IsGithubUserExists(GithubUserInfoViewModel githubUserModel)
         {
             var result = await _userRepository.Query().CountAsync(x => x.AuthType == AuthType.GitHub && x.AuthData == githubUserModel.Id);
-            return result>0;
+            return result > 0;
         }
 
         public async Task<User> RegisterGithubUser(GithubUserInfoViewModel githubUserModel)
         {
             return await _userRepository.AddAsync(new User()
             {
-                 AuthType = AuthType.GitHub,
-                 LastActionDate = DateTime.UtcNow,
-                 RegisterDate = DateTime.UtcNow,
-                 Login = githubUserModel.Login,
-                 Role = Role.User,
-                 AuthData = githubUserModel.Id,
-                 Username = githubUserModel.Login
+                AuthType = AuthType.GitHub,
+                LastActionDate = DateTime.UtcNow,
+                RegisterDate = DateTime.UtcNow,
+                Login = githubUserModel.Login,
+                Role = Role.User,
+                AuthData = githubUserModel.Id,
+                Username = githubUserModel.Login
             });
         }
 
         public async Task<User> LoginGithubUser(GithubUserInfoViewModel githubUserModel)
         {
             var user = await _userRepository.Query().SingleOrDefaultAsync(x => x.AuthData == githubUserModel.Id && x.AuthType == AuthType.GitHub);
+            user.LastActionDate = DateTime.UtcNow;
+            return _userRepository.Update(user);
+        }
+
+        public async Task<VkResponseViewModel> VkSignInOrSignUpUser(VkRequestViewModel vkUserModel)
+        {
+            var reqUrl = $"https://api.vk.com/method/users.get?user_ids={vkUserModel.UserId}&fields=photo_50&access_token={vkUserModel.AccessToken}&v=5.101";
+
+            using (var client = new HttpClient())
+            {
+                using (var res = await client.GetAsync(reqUrl))
+                using (var content = res.Content)
+                {
+                    var data = await content.ReadAsStringAsync();
+                    data = data.Replace("\\\"", "\"").Replace("\\/", "/");
+
+                    return JsonConvert
+                        .DeserializeObject<VkResponseProxyViewModel>(data)
+                        .Response[0];
+                }
+            }
+        }
+
+        public async Task<bool> IsVkUserExists(VkResponseViewModel vkUserModel)
+        {
+            var result = await _userRepository.Query().CountAsync(x => x.AuthType == AuthType.Vk && x.AuthData == vkUserModel.Id);
+            return result > 0;
+        }
+
+        public async Task<User> RegisterVkUser(VkResponseViewModel vkUserModel)
+        {
+            return await _userRepository.AddAsync(new User()
+            {
+                AuthType = AuthType.Vk,
+                LastActionDate = DateTime.UtcNow,
+                RegisterDate = DateTime.UtcNow,
+                Login = $"{vkUserModel.FirstName} {vkUserModel.LastName}",
+                Role = Role.User,
+                AuthData = vkUserModel.Id,
+                Username = $"{vkUserModel.FirstName} {vkUserModel.LastName}"
+            });
+        }
+
+        public async Task<User> LoginVkUser(VkResponseViewModel vkUserModel)
+        {
+            var user = await _userRepository.Query().SingleOrDefaultAsync(x => x.AuthData == vkUserModel.Id && x.AuthType == AuthType.Vk);
             user.LastActionDate = DateTime.UtcNow;
             return _userRepository.Update(user);
         }

@@ -2,7 +2,7 @@ import React from 'react';
 import SignUpForm from '../ReduxForms/Account/SignUpForm.jsx'
 import '../../../css/account.css'
 import GitHubAuth from '../Auth/GithubAuth.jsx';
-import VkIcon from '../../../icons/vk.svg';
+import VkAuth from '../Auth/VkAuth.jsx';
 
 const SignUpPage = props => {
     return ( <div className="row">
@@ -14,7 +14,7 @@ const SignUpPage = props => {
     <div className="col-12 col-lg-6">
         <p className="h3">Modern OAuth sign up:</p>
         <GitHubAuth />
-        <button className="btn btn-outline-info offset-1 col-10 oauth-button">Sign up with vk.com <VkIcon /></button>
+        <VkAuth />
     </div>
 </div>);
 }

@@ -6,7 +6,7 @@ import qs from 'qs'
 import { AUTH_USER } from '../../Actions/accountActions';
 
 class GithubAuthResult extends Component {
-    doTheHusstle = () =>{
+    doTheHussle = () =>{
         let { authUser, history } = this.props;
 
         const code  = qs.parse(this.props.location.search, { ignoreQueryPrefix: true })
@@ -26,7 +26,7 @@ class GithubAuthResult extends Component {
 
     render() {
         return <div>
-                {this.doTheHusstle()}
+                {this.doTheHussle()}
                 <h3>Please wait until authorization...</h3>
             </div>
     }

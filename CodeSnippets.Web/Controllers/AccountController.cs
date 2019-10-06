@@ -77,5 +77,6 @@ namespace CodeSnippets.Web.Controllers
                 return _responseCreator.CreateFailure("User is already exists.");
             }
         }
+
     }
 }
