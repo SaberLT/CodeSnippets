@@ -16,6 +16,7 @@ namespace CodeSnippets.Entities.Entities
         public DateTime RegisterDate { get; set; }
         public DateTime LastActionDate { get; set; }
         public Role Role { get; set; }
+        public string ImageUrl { get; set; }
     }
 
     public enum AuthType : byte

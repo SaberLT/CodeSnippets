@@ -12,7 +12,7 @@ const SignInPage = props => {
                 <SignInForm />
             </div>
             <div className="col-12 col-lg-6">
-                <p className="h3">Modern OAuth sign in:</p>
+                <p className="h3">Modern OAuth sign up:</p>
                 <GitHubAuth />
                 <VkAuth />
             </div>

@@ -21,9 +21,7 @@ namespace CodeSnippets.Services.Implementations
         private readonly IUserRepository _userRepository;
 
 
-
         private readonly List<char> _charToRemove = new List<char>() { '{', '}', '[', ']' };
-
         public AuthService(IUserRepository userRepository)
         {
             _userRepository = userRepository;
@@ -87,7 +85,9 @@ namespace CodeSnippets.Services.Implementations
                 Login = githubUserModel.Login,
                 Role = Role.User,
                 AuthData = githubUserModel.Id,
-                Username = githubUserModel.Login
+                Username = githubUserModel.Login,
+                UserInfo = "",
+                ImageUrl = githubUserModel.Avatar_Url             
             });
         }
 
@@ -133,7 +133,9 @@ namespace CodeSnippets.Services.Implementations
                 Login = $"{vkUserModel.FirstName} {vkUserModel.LastName}",
                 Role = Role.User,
                 AuthData = vkUserModel.Id,
-                Username = $"{vkUserModel.FirstName} {vkUserModel.LastName}"
+                Username = $"{vkUserModel.FirstName} {vkUserModel.LastName}",
+                UserInfo = "",
+                ImageUrl = vkUserModel.PhotoURL
             });
         }
 

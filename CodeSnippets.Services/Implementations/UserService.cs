@@ -76,7 +76,9 @@ namespace CodeSnippets.Services.Implementations
                 LastActionDate = DateTime.UtcNow,
                 Role = Role.User,
                 AuthType = AuthType.Standard,
-                Username = login
+                Username = login,
+                ImageUrl = "",
+                UserInfo = ""
             });
 
             await _uow.CommitAsync();

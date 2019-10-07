@@ -24,7 +24,27 @@ namespace CodeSnippets.Database.Repositories
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
+            builder.HasKey(user => user.Id);
+
+            builder.Property(user => user.Login)
+                   .HasMaxLength(30)
+                   .IsRequired();
+
+            builder.Property(user => user.AuthData)
+                   .HasMaxLength(100)
+                   .IsRequired();
+
+            builder.Property(user => user.Username)
+                   .HasMaxLength(30)
+                   .IsRequired();
+
+            builder.Property(user => user.UserInfo)
+                   .HasMaxLength(1000);
+
+            builder.Property(user => user.Role)
+                   .IsRequired();
             
+
             //builder.HasKey(user => user.Id);
 
             //builder.Property(user => user.Username)

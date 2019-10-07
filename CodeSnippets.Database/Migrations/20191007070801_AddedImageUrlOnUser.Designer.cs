@@ -3,14 +3,16 @@ using System;
 using CodeSnippets.Database.Concrete;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CodeSnippets.Database.Migrations
 {
     [DbContext(typeof(CodeSnippetsDbContext))]
-    partial class CodeSnippetsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191007070801_AddedImageUrlOnUser")]
+    partial class AddedImageUrlOnUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
